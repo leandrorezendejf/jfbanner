@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consulta de Bairros</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #003366;
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+    h1 {
+      color: #ff3333;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      margin: 20px 0;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 2px solid #ff3333;
+    }
+    ul {
+      list-style-type: disc;
+      padding: 20px;
+      max-height: 400px;
+      overflow-y: scroll;
+      background: #002244;
+      border: 2px solid #ff3333;
+      border-radius: 5px;
+      text-align: left;
+    }
+    li {
+      padding: 10px;
+      border-bottom: 1px solid #004080;
+      display: flex;
+      justify-content: space-between;
+    }
+    .bairro {
+      color: #ffffff;
+      font-weight: bold;
+    }
+    .valor {
+      color: #ff3333;
+    }
+    #whatsapp {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ff3333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Consulta de Taxa de Entrega</h1>
+  <input type="text" id="search" placeholder="Digite o nome do bairro..." onkeyup="filterList()" />
+  <ul id="bairro-list"></ul>
+  <button id="whatsapp" onclick="enviarWhatsapp()">Chamar no WhatsApp</button>
+
+  <script>
+    const bairros = [
+  { nome: "ADOLFO VIREQUE", valor: "R$16,00" },
+  { nome: "AEROPORTO", valor: "R$16,00" },
+  { nome: "ALTO DOS PASSOS", valor: "R$10,00" },
+  { nome: "ALTO DOS PINHEIROS", valor: "R$16,00" },
+  { nome: "ALTA SUMARÉ", valor: "R$31,00" },
+  { nome: "ALPHAVILLE", valor: "R$31,00" },
+  { nome: "AMAZÔNIA", valor: "R$16,00" },
+  { nome: "ARACY", valor: "R$11,00" },
+  { nome: "ARAÚJO", valor: "R$21,00" },
+  { nome: "BAIRU", valor: "R$14,00" },
+  { nome: "BANDEIRANTES", valor: "R$13,00" },
+  { nome: "BARBOSA LAGE", valor: "R$16,00" },
+  { nome: "BARREIRA DO TRIUNFO", valor: "R$36,00" },
+  { nome: "BELA AURORA", valor: "R$15,00" },
+  { nome: "BENFICA", valor: "R$26,00" },
+  { nome: "BOA VISTA", valor: "R$10,00" },
+  { nome: "BOM CLIMA", valor: "R$12,00" },
+  { nome: "BOM JARDIM", valor: "R$14,00" },
+  { nome: "BOM PASTOR", valor: "R$10,00" },
+  { nome: "BONFIM", valor: "R$11,00" },
+  { nome: "BONSUCESSO", valor: "R$13,00" },
+  { nome: "BORBOLETA", valor: "R$13,00" },
+  { nome: "BORBOREMA", valor: "R$13,00" },
+  { nome: "BOSQUE DO IMPERADOR", valor: "R$13,00" },
+  { nome: "BOSQUE DOS PINHEIROS", valor: "R$20,00" },
+  { nome: "BOSQUE IMPERIAL", valor: "R$16,00" },
+  { nome: "CAIÇARAS", valor: "R$17,00" },
+  { nome: "CAETÉ", valor: "R$46,00" },
+  { nome: "CARLOS CHAGAS", valor: "R$14,00" },
+  { nome: "CARRETÃO GAÚCHO", valor: "R$31,00" },
+  { nome: "CASCATINHA", valor: "R$11,00" },
+  { nome: "CENTENARIO", valor: "R$11,00" },
+  { nome: "CENTRO", valor: "R$10,00" },
+  { nome: "CERÂMICA", valor: "R$13,00" },
+  { nome: "CESARIO ALVIM", valor: "R$11,00" },
+  { nome: "CHACARA", valor: "R$46,00" },
+  { nome: "CHALÉS DO IMPERADOR", valor: "R$13,00" },
+  { nome: "CHAPEU D'UVA", valor: "R$61,00" },
+  { nome: "CIDADE DO SOL", valor: "R$17,00" },
+  { nome: "CIDADE JARDIM", valor: "R$11,00" },
+  { nome: "CIDADE NOVA", valor: "R$17,00" },
+  { nome: "CONDOMINIO ENSEADA", valor: "R$46,00" },
+  { nome: "CONDOMINIO PARK SUL", valor: "R$42,00" },
+  { nome: "COSTA CARVALHO", valor: "R$10,00" },
+  { nome: "CRUZEIRO DO SUL", valor: "R$12,00" },
+  { nome: "DEMOCRATA", valor: "R$12,00" },
+  { nome: "DIAS TAVARES", valor: "R$41,00" },
+  { nome: "DISTRITO INDUSTRIAL", valor: "R$29,00" },
+  { nome: "DOM BOSCO", valor: "R$11,00" },
+  { nome: "DOM ORIONE", valor: "R$12,00" },
+  { nome: "ELDORADO", valor: "R$12,00" },
+  { nome: "ENCOSTA DO SOL", valor: "R$15,00" },
+  { nome: "ESPLANADA", valor: "R$12,00" },
+  { nome: "ESTRELA SUL", valor: "R$11,00" },
+  { nome: "FABRICA", valor: "R$12,00" },
+  { nome: "FILGUEIRAS", valor: "R$40,00" },
+  { nome: "FLORESTA", valor: "R$31,00" },
+  { nome: "FONTESVILLE", valor: "R$17,00" },
+  { nome: "FONTESVILLE II", valor: "R$18,00" },
+  { nome: "FRANCISCO BERNARDINO", valor: "R$13,00" },
+  { nome: "FURTADO DE MENEZES", valor: "R$11,00" },
+  { nome: "GRAJAU", valor: "R$11,00" },
+  { nome: "GRAMA", valor: "R$26,00" },
+  { nome: "GRAMINHA", valor: "R$19,00" },
+  { nome: "GRAMBERY", valor: "R$10,00" },
+  { nome: "GRANJAS BETANIA", valor: "R$16,00" },
+  { nome: "GRANJAS SANTO ANTONIO", valor: "R$19,00" },
+  { nome: "GRANJAS DO BOSQUE", valor: "R$19,00" },
+  { nome: "GRANJAS BETHEL", valor: "R$26,00" },
+  { nome: "GRANJAS GUARUJA", valor: "R$29,00" },
+  { nome: "GRANJAS PRIMAVERA", valor: "R$16,00" },
+  { nome: "GRANJAS TRIUNFO", valor: "R$26,00" },
+  { nome: "GRANVILLE", valor: "R$16,00" },
+  { nome: "GUARUA", valor: "R$11,00" },
+  { nome: "HUMAITA", valor: "R$46,00" },
+  { nome: "IGREJINHA", valor: "R$41,00" },
+  { nome: "INDUSTRIAL", valor: "R$13,00" },
+  { nome: "IPIRANGA", valor: "R$13,00" },
+  { nome: "JARDIM AMERICA", valor: "R$13,00" },
+  { nome: "JARDIM CASABLANCA", valor: "R$16,00" },
+  { nome: "JARDIM SERRA", valor: "R$21,00" },
+  { nome: "JARDIM DA LUA", valor: "R$11,00" },
+  { nome: "JARDIM DE ALA", valor: "R$13,00" },
+  { nome: "JARDIM DO SOL", valor: "R$13,00" },
+  { nome: "JARDIM DOS ALFINEIROS", valor: "R$20,00" },
+  { nome: "JARDIM L'ERMITAGE", valor: "R$23,00" },
+  { nome: "JARDIM ESPERANCA", valor: "R$21,00" },
+  { nome: "JARDIM GAUCHO", valor: "R$16,00" },
+  { nome: "JARDIM GLORIA", valor: "R$10,00" },
+  { nome: "JARDIM LARANJEIRAS", valor: "R$11,00" },
+  { nome: "JARDIM LIU", valor: "R$11,00" },
+  { nome: "JARDIM NATAL", valor: "R$14,00" },
+  { nome: "JARDIM IMPERIAIS", valor: "R$13,00" },
+  { nome: "JK", valor: "R$11,00" },
+  { nome: "JOQUEI CLUBE I", valor: "R$16,00" },
+  { nome: "JOQUEI CLUBE II", valor: "R$17,00" },
+  { nome: "JOQUEI CLUBE III", valor: "R$18,00" },
+  { nome: "LINHARES", valor: "R$15,00" },
+  { nome: "MANOEL HONORIO", valor: "R$10,00" },
+  { nome: "MANSOES BOM PASTOR", valor: "R$11,00" },
+  { nome: "MARIANO PROCOPIO", valor: "R$11,00" },
+  { nome: "MARILANDIA", valor: "R$19,00" },
+  { nome: "MARTELOS", valor: "R$16,00" },
+  { nome: "MARUMBI", valor: "R$12,00" },
+  { nome: "MATIAS BARBOSA", valor: "R$46,00" },
+  { nome: "MERCEDES BENS", valor: "R$46,00" },
+  { nome: "MILHO BRANCO", valor: "R$16,00" },
+  { nome: "MIRANTE BR 040", valor: "R$41,00" },
+  { nome: "MONTE CASTELO", valor: "R$13,00" },
+  { nome: "MONTE VERDE", valor: "R$46,00" },
+  { nome: "MORADA DO SERRO", valor: "R$16,00" },
+  { nome: "MORRO DO IMPERADOR", valor: "R$13,00" },
+  { nome: "MUNDO NOVO", valor: "R$10,00" },
+  { nome: "NOSSA SENHORA  APARECIDA", valor: "R$12,00" },
+  { nome: "NOSSA SENHORA  DAS GRACAS", valor: "R$12,00" },
+  { nome: "NOSSA SENHORA  DE FATIMA", valor: "R$16,00" },
+  { nome: "NOSSA SENHORA  DE LOURDES", valor: "R$12,00" },
+  { nome: "NAUTICO", valor: "R$46,00" },
+  { nome: "NOVA BENFICA", valor: "R$27,00" },
+  { nome: "NOVA CALIFORNIA", valor: "R$21,00" },
+  { nome: "NOVA ERA", valor: "R$19,00" },
+  { nome: "NOVA GRAMADO", valor: "R$26,00" },
+  { nome: "NOVO HORIZONTE", valor: "R$21,00" },
+  { nome: "PAINEIRAS", valor: "R$11,00" },
+  { nome: "PALMITAL", valor: "R$66,00" },
+  { nome: "PARQUE BURNIER", valor: "R$12,00" },
+  { nome: "PARQUE DA LAJINHA", valor: "R$12,00" },
+  { nome: "PARQUE DAS TORRES", valor: "R$19,00" },
+  { nome: "PARQUE GUADALAIARA", valor: "R$15,00" },
+  { nome: "PARQUE GUARANI", valor: "R$14,00" },
+  { nome: "PARQUE IMPERIAL", valor: "R$16,00" },
+  { nome: "PARQUE INDEPENDECIA", valor: "R$26,00" },
+  { nome: "PARQUE DAS AGUAS", valor: "R$20,00" },
+  { nome: "PARQUE SERRA VERDE", valor: "R$14,00" },
+  { nome: "PARQUE SUL", valor: "R$26,00" },
+  { nome: "PEDRA BONITA", valor: "R$19,00" },
+  { nome: "POCO RICO", valor: "R$10,00" },
+  { nome: "PONTE PRETA", valor: "R$29,00" },
+  { nome: "PORTAL DA TORRE", valor: "R$16,00" },
+  { nome: "PREVIDENCIARIOS", valor: "R$17,00" },
+  { nome: "PRIVILEGE", valor: "R$13,00" },
+  { nome: "PROGRESSO", valor: "R$13,00" },
+  { nome: "QUINTA DA AVENIDA", valor: "R$13,00" },
+  { nome: "RECANTO DOS BURGER", valor: "R$26,00" },
+  { nome: "RECANTO DOS LAGOS", valor: "R$21,00" },
+  { nome: "RETIRO", valor: "R$19,00" },
+  { nome: "ROSARIO", valor: "R$61,00" },
+  { nome: "SAGRADO CORACAO", valor: "R$17,00" },
+  { nome: "SALVATERRA", valor: "R$20,00" },
+  { nome: "SANTA CANDIDA", valor: "R$11,00" },
+  { nome: "SANTA CATARINA", valor: "R$10,00" },
+  { nome: "SANTA CECILIA", valor: "R$10,00" },
+  { nome: "SANTA CRUZ", valor: "R$23,00" },
+  { nome: "SANTA EFIGENIA", valor: "R$15,00" },
+  { nome: "SANTA HELENA", valor: "R$10,00" },
+  { nome: "SANTA ISABEL", valor: "R$21,00" },
+  { nome: "SANTA LUCIA", valor: "R$19,00" },
+  { nome: "SANTA LUZIA", valor: "R$12,00" },
+  { nome: "SANTA MARIA", valor: "R$17,00" },
+  { nome: "SANTA PAULA", valor: "R$13,00" },
+  { nome: "SANTA RITA", valor: "R$13,00" },
+  { nome: "SANTA TEREZA", valor: "R$11,00" },
+  { nome: "SANTA TEREZINHA", valor: "R$11,00" },
+  { nome: "SANTANA", valor: "R$16,00" },
+  { nome: "SANTO ANTONIO", valor: "R$13,00" },
+  { nome: "SANTOS ANJOS", valor: "R$11,00" },
+  { nome: "SANTOS DUMONT", valor: "R$16,00" },
+  { nome: "SAO BENEDITO", valor: "R$13,00" },
+  { nome: "SAO BERNARDO", valor: "R$12,00" },
+  { nome: "SAO DAMIAO", valor: "R$23,00" },
+  { nome: "SAO DIMAS", valor: "R$13,00" },
+  { nome: "SAO FRANCISCO DE PAULA", valor: "R$21,00" },
+  { nome: "SAO GERALDO", valor: "R$16,00" },
+  { nome: "SAO JUDAS TADEU", valor: "R$21,00" },
+  { nome: "SAO MATEUS", valor: "R$10,00" },
+  { nome: "SAO PEDRO", valor: "R$16,00" },
+  { nome: "SAO SEBATIAO", valor: "R$10,00" },
+  { nome: "SAO TARCISIO", valor: "R$12,00" },
+  { nome: "SERRA D'AGUA", valor: "R$16,00" },
+  { nome: "SERRA AZUL", valor: "R$16,00" },
+  { nome: "SOLIDARIEDADE", valor: "R$13,00" },
+  { nome: "SPINA VILLE", valor: "R$19,00" },
+  { nome: "TEIXEIRAS", valor: "R$13,00" },
+  { nome: "TIGUERA", valor: "R$13,00" },
+  { nome: "TOLEDOS", valor: "R$61,00" },
+  { nome: "TORREOES", valor: "R$51,00" },
+  { nome: "TRES MOINHOS", valor: "R$11,00" },
+  { nome: "TUPA", valor: "R$16,00" },
+  { nome: "UFJF", valor: "R$16,00" },
+  { nome: "USINA QUATRO", valor: "R$26,00" },
+  { nome: "VALE DO AMANHECER", valor: "R$16,00" },
+  { nome: "VALADARES", valor: "R$61,00" },
+  { nome: "VALE DO YPE", valor: "R$12,00" },
+  { nome: "VALE VERDE", valor: "R$16,00" },
+  { nome: "VILA ALPINA", valor: "R$12,00" },
+  { nome: "VILA ESPERANCA", valor: "R$26,00" },
+  { nome: "VILA IDEAL", valor: "R$12,00" },
+  { nome: "VILA MONTANHESA", valor: "R$26,00" },
+  { nome: "VILA OLAVO COSTA", valor: "R$12,00" },
+  { nome: "VILA OZANAN", valor: "R$11,00" },
+  { nome: "VITORINO BRAGA", valor: "R$10,00" },
+  { nome: "VIVENDAS DA SERRA", valor: "R$16,00" },
+  { nome: "VIVENDAS DAS FONTES", valor: "R$13,00" }
+]; // Já preenchido anteriormente
+
+    const ul = document.getElementById("bairro-list");
+
+    function renderList(lista) {
+      ul.innerHTML = "";
+      lista.forEach(item => {
+        const li = document.createElement("li");
+        li.innerHTML = `<span class='bairro'>${item.nome}</span> <span class='valor'>${item.valor}</span>`;
+        ul.appendChild(li);
+      });
+    }
+
+    function filterList() {
+      const search = document.getElementById("search").value.toLowerCase();
+      const filtered = bairros.filter(b => b.nome.toLowerCase().includes(search));
+      renderList(filtered);
+    }
+
+    function enviarWhatsapp() {
+      const text = encodeURIComponent("*Ola* Confirma por favor entrega para bairro *Santa Luzia*, valor  R$ 11 *Pagamento via PIX* >  Pode solicitar a coleta. Obrigado");
+      const url = `https://wa.me/553299986920?text=${text}`;
+      window.open(url, '_blank');
+    }
+
+    renderList(bairros);
+  </script>
+</body>
+</html>

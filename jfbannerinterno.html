@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JF Banner App Interno</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fff8dc;
+      color: #000;
+    }
+    header {
+      background-color: #ffeb3b;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 4px solid #2196f3;
+    }
+    header img {
+      height: 50px;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      background-color: #2196f3;
+    }
+    nav button {
+      flex: 1;
+      padding: 10px;
+      background-color: #2196f3;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    nav button.active {
+      background-color: #1976d2;
+    }
+    .tab-content {
+      display: none;
+      padding: 15px;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .sub-tab {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .sub-tab button {
+      margin: 5px;
+      padding: 10px;
+      background-color: #ffffff;
+      border: 2px solid #2196f3;
+      color: #2196f3;
+      cursor: pointer;
+    }
+    .message-box {
+      margin-top: 15px;
+      background: #fff;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    .controls {
+      margin-top: 10px;
+    }
+    .controls button {
+      margin-right: 10px;
+      padding: 8px 12px;
+      border: none;
+      background-color: #2196f3;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    footer {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #ffeb3b;
+      text-align: center;
+      border-top: 2px solid #2196f3;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://i.imgur.com/hfDfCxP.png" alt="JF Banner Logo" />
+  </header>
+  <nav>
+    <button onclick="openTab('clientes')">Clientes</button>
+    <button onclick="openTab('administrativo')">Administrativo</button>
+    <button onclick="openTab('entrega')">Entrega</button>
+    <button onclick="openTab('graficas')">Gráficas</button>
+  </nav>
+
+  <div id="clientes" class="tab-content">
+    <div class="sub-tab">
+      <button onclick="showMessage('apresentacao')">Apresentação</button>
+      <button onclick="showMessage('orcamento-cartao-plastificado')">Cartão Plastificado</button>
+      <button onclick="showMessage('orcamento-cartao-verniz')">Cartão Verniz</button>
+      <button onclick="showMessage('orcamento-panfleto-10x14cm-4x0')">Panfleto 10x14cm 4x0</button>
+      <button onclick="showMessage('orcamento-wind-aluminio')">Wind Aluminio</button>
+      <button onclick="showMessage('orcamento-wind-fibra')">Wind Fibra</button>
+      <button onclick="showMessage('orcamento-banner-80')">Banner 80x120</button>
+      <button onclick="showMessage('orcamento-banner-60')">Banner 60x90</button>
+      <button onclick="showMessage('orcamento-faixa')">Faixa Formatura</button>
+     <button onclick="showMessage('orcamento-lona-ilhos')">Lona Ilhos</button>
+     <button onclick="showMessage('orcamento-adesivo-inteiro')">Adesivo Inteiro</button>
+     <button onclick="showMessage('orcamento-adesivo-cortado')">Adesivo Cortado</button>
+    </div>
+  </div>
+
+  <div id="administrativo" class="tab-content">
+    <div class="sub-tab">
+      <button onclick="showMessage('pix')">PIX</button>
+      <button onclick="showMessage('entrada')">Entrada</button>
+      <button onclick="showMessage('entrega-aviso')">Aviso de Entrega</button>
+    </div>
+  </div>
+
+  <div id="entrega" class="tab-content">
+    <div class="sub-tab">
+      <button onclick="showMessage('entrega-e-pra-ja')">É pra já</button>
+    </div>
+  </div>
+
+  <div id="graficas" class="tab-content">
+    <div class="sub-tab">
+      <button onclick="showMessage('grafica-banner')">Pedido Banner</button>
+      <button onclick="showMessage('grafica-lona')">Pedido Lona</button>
+      <button onclick="showMessage('grafica-adesivo')">Pedido Adesivo</button>
+    </div>
+  </div>
+
+  <div id="message-box" class="message-box" style="display:none">
+    <div id="message-text"></div>
+    <div class="controls">
+      <button onclick="copyMessage()">Copiar</button>
+      <button onclick="shareMessage()">Compartilhar via WhatsApp</button>
+    </div>
+  </div>
+
+  <footer>
+    Criado por Leandro Rezende • <span id="datetime"></span>
+  </footer>
+
+  <script>
+    const messages = {
+      apresentacao: "Olá, meu nome é Leandro, sou representante da empresa JF Banner, gostaria de agradecer muito seu contato. Qual seu nome e como posso ajudar?",
+      'orcamento-cartao-plastificado': `*🎴Cartão de Visita*\n📏 Tamanho 9x5cm\n📸 Qualidade de Foto\n📃 Couchê 250g ou Supremo 250g \n↔️ Plastificado na frente \n⌛ Produção em até 3 dias úteis depois da arte aprovada.\n💵 500 unidades R$ 80\n💵 1000 unidades R$ 90`,
+      'orcamento-cartao-verniz': `*🎴Cartão de Visita*\n📏 Tamanho 9x5cm\n📸 Qualidade de Foto\n📃 Papel Duodesign 300g\n↔️ Laminação Fosca dois lados\n↔️ Verniz Localizado dois lados\n⌛ Produção em até 7 dias úteis depois da arte aprovada.\n💵 500 unidades R$ 160\n💵 1000 unidades R$ 180`,
+      'orcamento-panfleto-10x14cm-4x0': `*🎴Panfletos*\n📏 Tamanho 10x14cm\n📸 Qualidade de Foto\n📃 Papel Couchê 80g\n↔️ Impressão Frente\nVerso Branco\n⌛ Produção até 3 dias úteis depois da arte aprovada.\n💵 1000 unidades R$ 130\n💵 2500 unidades R$ 150\n💵 5000 unidades R$ 240`,
+      'orcamento-wind-aluminio': `*📑Wind Banner Completo*\n🎖️Bandeira + Suporte (Base+Hastes de aluminio)\n📏Tamanho da Bandeira 70cm x 220cm\n↔️ Quando montado mede 3m\n💵 Valor R$ 320`,
+      'orcamento-wind-fibra': `*📑Wind Banner Completo*\n🎖️Bandeira + Suporte (Base+Hastes de fibra)\n📏Tamanho da Bandeira 70cm x 220cm\n↔️ Quando montado mede 3m\n💵 Valor R$ 380`,
+      'orcamento-banner-80': `*📑Banner Impresso em lona*\n🎖️Ótima qualidade\n📏Tamanho 80x120cm\n↔️ Acabamento bastão e corda\n💵 Valor R$ 90`,
+      'orcamento-banner-60': `*📑Banner Impresso em lona*\n🎖️Ótima qualidade\n📏Tamanho 60x90cm\n↔️ Acabamento bastão e corda\n💵 Valor R$ 70`,
+      'orcamento-faixa': `*📑Faixa de Formatura*\n🎖️Impressão em Lona\n📏Tamanho 170x60cm\n↔️ Acabamento maior nas laterais\n💵 Valor R$ 100`,
+      'orcamento-lona-ilhos': `*📑Lona Impressa*\n🎖️Otima Qualidade\n📏Tamanho 170x60cm\n↔️ Acabamento bainha e ilhos\n💵 Valor R$ 100`,
+      'orcamento-adesivo-inteiro': `*📑Adesivo Impresso*\n🎖️Otima Qualidade\n📏Tamanho 100x100cm\n↔️ Sem instalação\n💵 Valor R$ 100`,
+      'orcamento-adesivo-cortado': `*📑Adesivo Impresso*\n🎖️Otima Qualidade\n📏Tamanho 5x5cm\n↔️ 100 unidades, corte circular\n💵 Valor R$ 100`,
+      pix: `*PIX Chave CNPJ*\nLeandro A F B Rezende\nChave 41920891000181`,
+      entrada: `Depois da arte aprovada, entrada de 50% do valor e restante na entrega. *Entrada pode ser feita via PIX*`,
+      'entrega-aviso': `📦 Seu *Pedido* está *pronto* disponível para retirada aqui no nosso escritório em *horário marcado* ⏰\n\n📌 *Endereço:* Rua Travessa Irmão Heraldo, número 14, (rua sem saída, após uma oficina de motos).\n\n🛵 *Entrega via Motoboy*\nTemos também parceria com uma empresa de entrega via motoboy. Caso decida avaliar essa opção, envie o *bairro de entrega* que passamos o valor.`,
+      'entrega-e-pra-ja': `*Boa tarde*\n\n> Confirma por favor entrega para bairro *São Mateus*, valor R$ 10\n\n*Pagamento via PIX*\n\n> Pode solicitar a coleta. Obrigado`,
+      'grafica-banner': `Banner 80x120cm, acabamento bastão e corda. Cliente precisa para hoje, quarta-feira, 23/04/25.`,
+      'grafica-lona': `Lona 80x120cm, acabamento bainha e ilhós. Cliente precisa para hoje, quarta-feira, 23/04/25.`,
+      'grafica-adesivo': `Adesivo 80x120cm, sem acabamento. Cliente precisa para hoje, quarta-feira, 23/04/25.`
+    };
+
+    function openTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+      document.getElementById('message-box').style.display = 'none';
+    }
+
+    function showMessage(key) {
+      document.getElementById('message-text').innerText = messages[key];
+      document.getElementById('message-box').style.display = 'block';
+    }
+
+    function copyMessage() {
+      navigator.clipboard.writeText(document.getElementById('message-text').innerText);
+      alert('Mensagem copiada!');
+    }
+
+    function shareMessage() {
+      const nome = prompt("Digite o nome da pessoa para quem vai enviar:");
+      if (!nome) return;
+      const mensagem = `*Para ${nome}:*\n` + document.getElementById('message-text').innerText;
+      const url = `https://wa.me/?text=${encodeURIComponent(mensagem)}`;
+      window.open(url, '_blank');
+    }
+
+    // Define horário atual
+    document.getElementById("datetime").textContent = new Date().toLocaleString();
+
+    // Ativa aba padrão
+    openTab('clientes');
+  </script>
+</body>
+</html>

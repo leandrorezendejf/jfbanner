@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora Proporcional - JF Banner</title>
+  <style>
+    body {
+      background-color: yellow;
+      color: blue;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    input {
+      padding: 10px;
+      margin: 5px;
+      font-size: 16px;
+      width: 90%;
+      max-width: 300px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      background-color: blue;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: darkblue;
+    }
+    .resultado {
+      font-size: 18px;
+      margin-top: 15px;
+    }
+    .logo img {
+      max-width: 300px;
+      width: 100%;
+      height: auto;
+    }
+    .footer {
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">
+    <img src="https://i.imgur.com/hfDfCxP.png" alt="JF Banner" />
+  </div>
+
+  <h1>Calculadora de Tamanho Proporcional</h1>
+
+  <p>Digite a largura e altura originais:</p>
+  <input type="number" id="larguraOriginal" placeholder="Largura original (cm)">
+  <input type="number" id="alturaOriginal" placeholder="Altura original (cm)">
+
+  <p>Digite a nova largura <strong>ou</strong> nova altura:</p>
+  <input type="number" id="novaLargura" placeholder="Nova largura (cm)">
+  <input type="number" id="novaAltura" placeholder="Nova altura (cm)">
+  
+  <br>
+  <button onclick="calcular()">Calcular</button>
+
+  <div class="resultado" id="resultado"></div>
+
+  <div class="footer">
+    <p>Site: <a href="https://www.jfbanner.com.br" target="_blank">www.jfbanner.com.br</a></p>
+    <p>WhatsApp: <a href="https://wa.me/5532998457218" target="_blank">(32) 99845-7218</a></p>
+    <button onclick="window.open('https://www.jfbanner.com.br')">Acessar Site</button>
+    <button onclick="window.open('https://wa.me/5532998457218')">Falar no WhatsApp</button>
+  </div>
+
+  <script>
+    function calcular() {
+      const larguraOriginal = parseFloat(document.getElementById("larguraOriginal").value);
+      const alturaOriginal = parseFloat(document.getElementById("alturaOriginal").value);
+      const novaLargura = parseFloat(document.getElementById("novaLargura").value);
+      const novaAltura = parseFloat(document.getElementById("novaAltura").value);
+      const resultado = document.getElementById("resultado");
+
+      if (!larguraOriginal || !alturaOriginal) {
+        resultado.innerHTML = "Digite os valores originais corretamente.";
+        return;
+      }
+
+      let largura, altura;
+
+      if (novaLargura && !novaAltura) {
+        largura = novaLargura;
+        altura = (novaLargura * alturaOriginal) / larguraOriginal;
+      } else if (novaAltura && !novaLargura) {
+        altura = novaAltura;
+        largura = (novaAltura * larguraOriginal) / alturaOriginal;
+      } else {
+        resultado.innerHTML = "Digite apenas a nova largura ou nova altura.";
+        return;
+      }
+
+      const larguraM = largura / 100;
+      const alturaM = altura / 100;
+      const areaM2 = larguraM * alturaM;
+
+      resultado.innerHTML = `
+        Nova medida proporcional:<br>
+        <strong>${largura.toFixed(2)}cm</strong> x <strong>${altura.toFixed(2)}cm</strong><br>
+        Área total: <strong>${areaM2.toFixed(2)} m²</strong>
+      `;
+    }
+  </script>
+</body>
+</html>

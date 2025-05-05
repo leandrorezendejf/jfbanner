@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WhatsApp Abrir Conversa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    #container {
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    #telefone {
+      width: 100%;
+      height: 40px;
+      font-size: 18px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    #abrir-conversa {
+      width: 100%;
+      height: 40px;
+      font-size: 18px;
+      background-color: #25D366;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h2>Abrir Conversa WhatsApp</h2>
+    <input type="tel" id="telefone" placeholder="Digite o numero de telefone">
+    <button id="abrir-conversa">Abrir Conversa</button>
+  </div>
+
+  <script>
+    const telefoneInput = document.getElementById('telefone');
+    const abrirConversaButton = document.getElementById('abrir-conversa');
+
+    abrirConversaButton.addEventListener('click', () => {
+      const telefone = telefoneInput.value.replace(/[^0-9]/g, '');
+      const url = `https://api.whatsapp.com/send?phone=${telefone}`;
+      window.open(url, '_blank');
+    });
+  </script>
+</body>
+</html>
+```

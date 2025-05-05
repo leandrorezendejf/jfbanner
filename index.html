@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JF Banner - Cartão Digital</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --azul1: #0044cc;
+      --azul2: #002a80;
+      --amarelo-claro: #fff000;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: var(--azul1);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .card {
+      background: var(--amarelo-claro);
+      border-radius: 24px;
+      max-width: 430px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      padding: 30px 20px;
+      text-align: center;
+      color: #002e6d;
+    }
+
+    .logo {
+      width: 140px;
+      margin-bottom: 20px;
+    }
+
+    .servicos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .servico-item {
+      background-color: #e3f2fd;
+      padding: 10px 15px;
+      border-radius: 30px;
+      font-weight: 600;
+      color: #004aad;
+      font-size: 14px;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 90%;
+      margin: 10px auto;
+      padding: 14px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      text-decoration: none;
+      background: linear-gradient(to right, var(--azul1), var(--azul2));
+      border: none;
+      border-radius: 40px;
+      box-shadow: 0 5px 15px rgba(0, 91, 187, 0.5);
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 91, 187, 0.6);
+    }
+
+    .pix-box {
+      background-color: #e0f7fa;
+      padding: 12px 15px;
+      border-radius: 20px;
+      margin: 10px auto;
+      width: 90%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: bold;
+      color: #006064;
+      border: 2px solid #00bcd4;
+      flex-direction: column;
+    }
+
+    .pix-box input {
+      border: none;
+      font-size: 16px;
+      text-align: center;
+      width: 100%;
+      padding: 6px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      background-color: #ffffff;
+      color: #004d40;
+    }
+
+    .pix-box button {
+      background-color: #00bcd4;
+      border: none;
+      padding: 8px 16px;
+      color: #fff;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .pix-box button:hover {
+      background-color: #0097a7;
+    }
+
+    .datetime {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #002a80;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #002a80;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="https://i.imgur.com/hfDfCxP.png" alt="JF Banner" class="logo">
+
+    <div class="servicos">
+      <div class="servico-item">Banner</div>
+      <div class="servico-item">Lona Impressa</div>
+      <div class="servico-item">Cartão de Visita</div>
+      <div class="servico-item">Panfletos</div>
+      <div class="servico-item">Faixas</div>
+      <div class="servico-item">Adesivos</div>
+      <div class="servico-item">Wind Banner</div>
+    </div>
+
+    <a class="btn" href="https://wa.me/032998457218" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    <a class="btn" href="https://www.instagram.com/jfbannerpersonalizado" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+    <a class="btn" href="https://www.jfbanner.com.br" target="_blank"><i class="fas fa-globe"></i> Site</a>
+    <a class="btn" href="https://maps.app.goo.gl/wdjEdX4JreG64SfPA" target="_blank"><i class="fas fa-map-marker-alt"></i> Localização</a>
+
+    <div class="pix-box">
+      <div><img src="https://artpoin.com/wp-content/uploads/2023/09/artpoin-logo-pix.png" alt="PIX Logo" width="24" height="24"> Chave PIX CNPJ</div>
+      <input type="text" id="pixKey" value="41920891000181" readonly>
+      <button onclick="copiarPix()">Copiar chave PIX</button>
+    </div>
+
+    <div class="datetime" id="datetime"></div>
+    <footer><i class="fas fa-star"></i> Criado por Leandro Rezende</footer>
+  </div>
+
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      const date = now.toLocaleDateString('pt-BR', options);
+      const time = now.toLocaleTimeString('pt-BR');
+      document.getElementById('datetime').innerHTML = `<i class='far fa-clock'></i> ${date} - ${time}`;
+    }
+
+    function copiarPix() {
+      const input = document.getElementById('pixKey');
+      input.select();
+      input.setSelectionRange(0, 99999); // Para dispositivos móveis
+      document.execCommand('copy');
+      alert('Chave PIX copiada!');
+    }
+
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+  </script>
+</body>
+</html>

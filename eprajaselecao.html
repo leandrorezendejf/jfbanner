@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Calcular Entrega</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0D1B2A; /* azul escuro */
+      color: white;
+      padding: 30px;
+      max-width: 500px;
+      margin: auto;
+    }
+
+    h2 {
+      font-size: 28px;
+      color: #FF595E; /* vermelho moderno */
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 18px;
+      margin-bottom: 10px;
+      display: block;
+      color: #FFFFFF;
+    }
+
+    select, button {
+      padding: 15px;
+      font-size: 18px;
+      margin-top: 10px;
+      width: 100%;
+      border-radius: 8px;
+      border: none;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+    }
+
+    select {
+      background-color: #1B263B;
+      color: white;
+    }
+
+    button {
+      background-color: #FF595E; /* vermelho */
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #FF3B40;
+    }
+
+    #info {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: #1B263B;
+      padding: 15px;
+      border-radius: 8px;
+      color: #FFFFFF;
+      box-shadow: inset 0 0 5px rgba(255,255,255,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Calcular valor da entrega</h2>
+
+  <label for="bairro">Escolha o bairro:</label>
+  <select id="bairro" onchange="mostrarValor()">
+    <option value="">Selecione um bairro</option>
+    <option value="ADOLFO VIREQUE|16">ADOLFO VIREQUE</option>
+    <option value="AEROPORTO|16">AEROPORTO</option>
+    <option value="ALTO DOS PASSOS|10">ALTO DOS PASSOS</option>
+    <option value="ALTO DOS PINHEIROS|16">ALTO DOS PINHEIROS</option>
+    <option value="ALTA SUMARE|31">ALTA SUMARE</option>
+    <option value="ALPHAVILLE|31">ALPHAVILLE</option>
+    <option value="AMAZONIA|16">AMAZONIA</option>
+    <option value="ARACY|11">ARACY</option>
+    <option value="ARAUJO|21">ARAUJO</option>
+    <option value="BAIRU|14">BAIRU</option>
+    <option value="BANDEIRANTES|13">BANDEIRANTES</option>
+    <option value="BARBOSA LAGE|16">BARBOSA LAGE</option>
+    <option value="BARREIRA DO TRIUNFO|36">BARREIRA DO TRIUNFO</option>
+    <option value="BELA AURORA|15">BELA AURORA</option>
+    <option value="BENFICA|26">BENFICA</option>
+    <option value="BOA VISTA|10">BOA VISTA</option>
+    <option value="BOM CLIMA|12">BOM CLIMA</option>
+    <option value="BOM JARDIM|14">BOM JARDIM</option>
+    <option value="BOM PASTOR|10">BOM PASTOR</option>
+    <option value="BONFIM|11">BONFIM</option>
+    <option value="BONSUCESSO|13">BONSUCESSO</option>
+    <option value="BORBOLETA|13">BORBOLETA</option>
+    <option value="BORBOREMA|13">BORBOREMA</option>
+    <option value="BOSQUE DO IMPERADOR|13">BOSQUE DO IMPERADOR</option>
+    <option value="BOSQUE DOS PINHEIROS|20">BOSQUE DOS PINHEIROS</option>
+    <option value="BOSQUE IMPERIAL|16">BOSQUE IMPERIAL</option>
+    <option value="CAICARAS|17">CAICARAS</option>
+    <option value="CAETE|46">CAETE</option>
+    <option value="CARLOS CHAGAS|14">CARLOS CHAGAS</option>
+    <option value="CARRETAO GAUCHO|31">CARRETAO GAUCHO</option>
+    <option value="CASCATINHA|11">CASCATINHA</option>
+    <option value="CENTENARIO|11">CENTENARIO</option>
+    <option value="CENTRO|10">CENTRO</option>
+    <option value="CERAMICA|13">CERAMICA</option>
+    <option value="CESARIO ALVIM|11">CESARIO ALVIM</option>
+    <option value="CHACARA|14">CHACARA</option>
+    <option value="CHALES DO IMPERADOR|13">CHALES DO IMPERADOR</option>
+    <option value="CHAPEU D'UVA|61">CHAPEU D'UVA</option>
+    <option value="CIDADE DO SOL|17">CIDADE DO SOL</option>
+    <option value="CIDADE JARDIM|11">CIDADE JARDIM</option>
+    <option value="CIDADE NOVA|17">CIDADE NOVA</option>
+    <option value="CONDOMINIO ENSEADA|46">CONDOMINIO ENSEADA</option>
+    <option value="CONDOMINIO PARK SUL|42">CONDOMINIO PARK SUL</option>
+    <option value="COSTA CARVALHO|10">COSTA CARVALHO</option>
+    <option value="CRUZEIRO DO SUL|12">CRUZEIRO DO SUL</option>
+    <option value="DEMOCRATA|12">DEMOCRATA</option>
+    <option value="DIAS TAVARES|41">DIAS TAVARES</option>
+    <option value="DISTRITO INDUSTRIAL|29">DISTRITO INDUSTRIAL</option>
+    <option value="DOM BOSCO|11">DOM BOSCO</option>
+    <option value="DOM ORIONE|12">DOM ORIONE</option>
+    <option value="ELDORADO|12">ELDORADO</option>
+    <option value="ENCOSTA DO SOL|15">ENCOSTA DO SOL</option>
+    <option value="ESPLANADA|12">ESPLANADA</option>
+    <option value="ESTRELA SUL|11">ESTRELA SUL</option>
+    <option value="FABRICA|12">FABRICA</option>
+    <option value="FILGUEIRAS|40">FILGUEIRAS</option>
+    <option value="FLORESTA|31">FLORESTA</option>
+    <option value="FONTESVILLE|17">FONTESVILLE</option>
+    <option value="FONTESVILLE II|18">FONTESVILLE II</option>
+    <option value="FRANCISCO BERNARDINO|13">FRANCISCO BERNARDINO</option>
+    <option value="FURTADO DE MENEZES|11">FURTADO DE MENEZES</option>
+    <option value="GRAJAU|11">GRAJAU</option>
+    <option value="GRAMA|26">GRAMA</option>
+    <option value="GRAMINHA|19">GRAMINHA</option>
+    <option value="GRAMBERY|10">GRAMBERY</option>
+    <option value="GRANJAS BETANIA|16">GRANJAS BETANIA</option>
+    <option value="GRANJAS SANTO ANTONIO|19">GRANJAS SANTO ANTONIO</option>
+    <option value="GRANJAS DO BOSQUE|19">GRANJAS DO BOSQUE</option>
+    <option value="GRANJAS BETHEL|26">GRANJAS BETHEL</option>
+    <option value="GRANJAS GUARUJA|29">GRANJAS GUARUJA</option>
+    <option value="GRANJAS PRIMAVERA|16">GRANJAS PRIMAVERA</option>
+    <option value="GRANJAS TRIUNFO|26">GRANJAS TRIUNFO</option>
+    <option value="GRANVILLE|16">GRANVILLE</option>
+    <option value="GUARUA|11">GUARUA</option>
+    <option value="HUMAITA|46">HUMAITA</option>
+    <option value="IGREJINHA|41">IGREJINHA</option>
+    <option value="INDUSTRIAL|13">INDUSTRIAL</option>
+    <option value="IPIRANGA|13">IPIRANGA</option>
+    <option value="JARDIM AMERICA|13">JARDIM AMERICA</option>
+    <option value="JARDIM CASABLANCA|16">JARDIM CASABLANCA</option>
+    <option value="JARDIM SERRA|21">JARDIM SERRA</option>
+    <option value="JARDIM DA LUA|11">JARDIM DA LUA</option>
+    <option value="JARDIM DE ALA|13">JARDIM DE ALA</option>
+    <option value="JARDIM DO SOL|13">JARDIM DO SOL</option>
+    <option value="JARDIM DOS ALFINEIROS|20">JARDIM DOS ALFINEIROS</option>
+    <option value="JARDIM L'ERMITAGE|23">JARDIM L'ERMITAGE</option>
+    <option value="JARDIM ESPERANCA|21">JARDIM ESPERANCA</option>
+    <option value="JARDIM GAUCHO|16">JARDIM GAUCHO</option>
+    <option value="JARDIM GLORIA|10">JARDIM GLORIA</option>
+    <option value="JARDIM LARANJEIRAS|11">JARDIM LARANJEIRAS</option>
+    <option value="JARDIM LIU|11">JARDIM LIU</option>
+    <option value="JARDIM IMPERIAIS|13">JARDIM IMPERIAIS</option>
+    <option value="JK|11">JK</option>
+    <option value="JOQUEI CLUBE I|16">JOQUEI CLUBE I</option>
+    <option value="JOQUEI CLUBE II|17">JOQUEI CLUBE II</option>
+    <option value="JOQUEI CLUBE III|18">JOQUEI CLUBE III</option>
+    <option value="LINHARES|15">LINHARES</option>
+    <option value="MANOEL HONORIO|10">MANOEL HONORIO</option>
+    <option value="MANSOES BOM PASTOR|11">MANSOES BOM PASTOR</option>
+    <option value="MARIANO PROCOPIO|11">MARIANO PROCOPIO</option>
+    <option value="MARILANDIA|19">MARILANDIA</option>
+    <option value="MARTELOS|16">MARTELOS</option>
+    <option value="MARUMBI|12">MARUMBI</option>
+    <option value="MATIAS BARBOSA|46">MATIAS BARBOSA</option>
+    <option value="MERCEDES BENS|46">MERCEDES BENS</option>
+    <option value="MILHO BRANCO|16">MILHO BRANCO</option>
+    <option value="MIRANTE BR 040|41">MIRANTE BR 040</option>
+    <option value="MONTE CASTELO|13">MONTE CASTELO</option>
+    <option value="MONTE VERDE|43">MONTE VERDE</option>
+    <option value="MORADA DO SERRO|16">MORADA DO SERRO</option>
+    <option value="MORRO DO IMPERADOR|13">MORRO DO IMPERADOR</option>
+    <option value="MUNDO NOVO|10">MUNDO NOVO</option>
+    <option value="NOSSA SENHORA  APARECIDA|12">NOSSA SENHORA APARECIDA</option>
+    <option value="NOSSA SENHORA  DAS GRACAS|12">NOSSA SENHORA DAS GRACAS</option>
+    <option value="NOSSA SENHORA  DE FATIMA|16">NOSSA SENHORA DE FATIMA</option>
+    <option value="NOSSA SENHORA  DE LOURDES|12">NOSSA SENHORA DE LOURDES</option>
+    <option value="NAUTICO|46">NAUTICO</option>
+    <option value="NOVA BENFICA|27">NOVA BENFICA</option>
+    <option value="NOVA CALIFORNIA|21">NOVA CALIFORNIA</option>
+    <option value="NOVA ERA|19">NOVA ERA</option>
+    <option value="NOVA GRAMADO|26">NOVA GRAMADO</option>
+    <option value="NOVO HORIZONTE|21">NOVO HORIZONTE</option>
+    <option value="PAINEIRAS|11">PAINEIRAS</option>
+    <option value="PALMITAL|66">PALMITAL</option>
+    <option value="PARQUE BURNIER|12">PARQUE BURNIER</option>
+    <option value="PARQUE DA LAJINHA|12">PARQUE DA LAJINHA</option>
+    <option value="PARQUE DAS TORRES|19">PARQUE DAS TORRES</option>
+    <option value="PARQUE GUADALAIARA|15">PARQUE GUADALAIARA</option>
+    <option value="PARQUE GUARANI|14">PARQUE GUARANI</option>
+    <option value="PARQUE IMPERIAL|16">PARQUE IMPERIAL</option>
+    <option value="PARQUE INDEPENDECIA|26">PARQUE INDEPENDECIA</option>
+    <option value="PARQUE DAS AGUAS|20">PARQUE DAS AGUAS</option>
+    <option value="PARQUE SERRA VERDE|14">PARQUE SERRA VERDE</option>
+    <option value="PARQUE SUL|26">PARQUE SUL</option>
+    <option value="PEDRA BONITA|19">PEDRA BONITA</option>
+    <option value="POCO RICO|10">POCO RICO</option>
+    <option value="PONTE PRETA|29">PONTE PRETA</option>
+    <option value="PORTAL DA TORRE|16">PORTAL DA TORRE</option>
+    <option value="PREVIDENCIARIOS|17">PREVIDENCIARIOS</option>
+    <option value="PRIVILEGE|13">PRIVILEGE</option>
+    <option value="PROGRESSO|13">PROGRESSO</option>
+    <option value="QUINTA DA AVENIDA|13">QUINTA DA AVENIDA</option>
+    <option value="RECANTO DOS BURGER|26">RECANTO DOS BURGER</option>
+    <option value="RECANTO DOS LAGOS|21">RECANTO DOS LAGOS</option>
+    <option value="RETIRO|19">RETIRO</option>
+    <option value="ROSARIO|61">ROSARIO</option>
+    <option value="SAGRADO CORACAO|17">SAGRADO CORACAO</option>
+    <option value="SALVATERRA|20">SALVATERRA</option>
+    <option value="SANTA CANDIDA|11">SALVATERRA</option>
+    <option value="SANTA CATARINA|10">SANTA CATARINA</option>
+    <option value="SANTA CECILIA|10">SANTA CECILIA</option>
+    <option value="SANTA CRUZ|23">SANTA CRUZ</option>
+    <option value="SANTA EFIGENIA|15">SANTA EFIGENIA</option>
+    <option value="SANTA HELENA|10">SANTA HELENA</option>
+    <option value="SANTA ISABEL|21">SANTA ISABEL</option>
+    <option value="SANTA LUCIA|19">SANTA LUCIA</option>
+    <option value="SANTA LUZIA|12">SANTA LUZIA</option>
+    <option value="SANTA MARIA|17">SANTA MARIA</option>
+    <option value="SANTA PAULA|13">SANTA PAULA</option>
+    <option value="SANTA RITA|13">SANTA RITA</option>
+    <option value="SANTA TEREZA|13">SANTA TEREZA</option>
+    <option value="SANTA TEREZINHA|11">SANTA TEREZINHA</option>
+    <option value="SANTANA|16">SANTANA</option>
+    <option value="SANTO ANTONIO|13">SANTO ANTONIO</option>
+    <option value="SANTOS ANJOS|11">SANTOS ANJOS</option>
+    <option value="SANTOS DUMONT|16">SANTOS DUMONT</option>
+    <option value="SAO BENEDITO|13">SAO BENEDITO</option>
+    <option value="SAO BERNARDO|12">SAO BERNARDO</option>
+   <option value="SAO DAMIAO|23">SAO DAMIAO</option>
+   <option value="SAO DIMAS"|13">SAO DIMAS</option>
+   <option value="SAO FRANCISCO DE PAULA|21">SAO FRANCISCO DE PAULA</option>
+   <option value="SAO GERALDO|16">SAO GERALDO</option>
+   <option value="SAO JUDAS TADEU|21">SAO JUDAS TADEU</option>
+   <option value="SAO MATEUS|10">SAO MATEUS</option>
+   <option value="SAO PEDRO|16">SAO PEDRO</option>
+   <option value="SAO SEBASTIAO|10">SAO SEBASTIAO</option>
+   <option value="SAO TARCISIO|12">SAO TARCISIO</option>
+   <option value="SERRA D'AGUA|16">SERRA D'AGUA</option>
+   <option value="SERRA AZUL|16">SERRA AZUL</option>
+   <option value="SOLIDARIEDADE"|13">SOLIDARIEDADE</option>
+   <option value="SPINA VILLE|19">SPINA VILLE</option>
+   <option value="TEIXEIRAS|13">TEIXEIRAS</option>
+   <option value="TIGUERA|13">TIGUERA</option>
+   <option value="TOLEDOS|61">TOLEDOS</option>
+   <option value="TORREOES|51">TORREOES</option>
+   <option value="TRES MOINHOS|11">TRES MOINHOS</option>
+   <option value="TUPA|16">TUPA</option>
+   <option value="UFJF|16">UFJF</option>
+   <option value="USINA QUATRO|26">USINA QUATRO</option>
+   <option value="VALE DO AMANHECER|16">VALE DO AMANHECER</option>
+   <option value="VALADARES|61">VALADARES</option>
+   <option value="VALE DO YPE|12">VALE DO YPE</option>
+   <option value="VALE VERDE|16">VALE VERDE</option>
+   <option value="VILA ALPINA|12">VILA ALPINA</option>
+   <option value="VILA ESPERANCA|26">VILA ESPERANCA</option>
+   <option value="VILA IDEAL|12">VILA IDEAL</option>
+   <option value="VILA MONTANHESA|26">VILA MONTANHESA</option>
+   <option value="VILA OLAVO COSTA|12">VILA OLAVO COSTA</option>
+   <option value="VILA OZANAN|11">VILA OZANAN</option>
+   <option value="VITORINO BRAGA|10">VITORINO BRAGA</option>
+   <option value="VIVENDAS DA SERRA|16">VIVENDAS DA SERRA</option>
+   <option value="VIVENDAS DAS FONTES|13">VIVENDAS DAS FONTES</option>
+  </select>
+
+  <div id="info"></div>
+
+  <button onclick="enviarWhatsApp()">Enviar para o WhatsApp</button>
+
+  <script>
+    let bairroSelecionado = "";
+    let valorEntrega = "";
+
+    function mostrarValor() {
+      const select = document.getElementById("bairro");
+      const valor = select.value;
+      if (valor) {
+        const [bairro, preco] = valor.split("|");
+        bairroSelecionado = bairro;
+        valorEntrega = preco;
+        document.getElementById("info").textContent = `Valor da entrega para ${bairro}: R$ ${preco},00`;
+      } else {
+        document.getElementById("info").textContent = "";
+        bairroSelecionado = "";
+        valorEntrega = "";
+      }
+    }
+
+    function enviarWhatsApp() {
+      if (!bairroSelecionado || !valorEntrega) {
+        alert("Por favor, selecione um bairro.");
+        return;
+      }
+
+      const mensagem = `*Olá!* Confirma por favor entrega para bairro *${bairroSelecionado}*, valor R$${valorEntrega},00 *Pagamento via PIX* Pode solicitar a coleta por favor.`;
+      const numero = "553299986920"; // <-- Coloque aqui o seu número com DDI e DDD
+      const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+      window.open(url, "_blank");
+    }
+  </script>
+
+</body>
+</html>

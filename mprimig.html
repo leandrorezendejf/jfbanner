@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Automático</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0d1b2a; /* azul escuro */
+      color: white;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header, footer {
+      background-color: #ffd60a; /* amarelo */
+      padding: 10px 20px;
+      text-align: center;
+    }
+
+    header img {
+      max-height: 50px;
+      margin: 5px 10px;
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .info-box {
+      background-color: #1b263b;
+      border-radius: 10px;
+      padding: 20px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .info-box h3 {
+      color: #ffd60a;
+      margin-bottom: 10px;
+    }
+
+    .info-box p {
+      font-size: 1.2em;
+      margin: 0;
+    }
+
+    #entrarBtn {
+      padding: 15px 30px;
+      background-color: #00c853;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2em;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 15px;
+    }
+
+    #entrarBtn:hover {
+      background-color: #00a94c;
+    }
+
+    .whatsapp-btn {
+      margin-top: 20px;
+      background-color: #25D366;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 16px;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    footer p {
+      margin: 0;
+      color: #0d1b2a; /* azul escuro */
+    }
+
+    @media (max-width: 600px) {
+      header img {
+        max-height: 35px;
+      }
+
+      .info-box {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="https://i.imgur.com/hfDfCxP.png" alt="Logo 1" />
+    <img src="https://www.imprimig.com.br/wp-content/images/logo.png" alt="Logo Imprimig" />
+  </header>
+
+  <div class="main-content">
+    <div class="info-box">
+      <h3>Data e Hora Atual</h3>
+      <p id="dataHora">Carregando...</p>
+    </div>
+
+    <div class="info-box">
+      <h3>Previsão do Tempo</h3>
+      <p id="clima">Buscando clima...</p>
+    </div>
+
+    <p><strong>Para acessar seus pedidos, clique abaixo:</strong></p>
+    <button id="entrarBtn">Entrar</button>
+
+    <a class="whatsapp-btn" href="https://wa.me/553284125961" target="_blank">
+      Falar com a Imprimig no WhatsApp
+    </a>
+  </div>
+
+  <footer>
+    <p>Criado por Leandro Rezende</p>
+  </footer>
+
+  <script>
+    // Login automático com clique
+    const loginCorreto = 'planetaartejf@gmail.com';
+    const senhaCorreta = 'ubsshow10';
+
+    function loginAutomatico() {
+      const email = loginCorreto;
+      const senha = senhaCorreta;
+      if (email === loginCorreto && senha === senhaCorreta) {
+        window.location.href = 'https://www.imprimig.com.br/cliente/pedidos/';
+      } else {
+        alert('Erro ao fazer login');
+      }
+    }
+
+    document.getElementById("entrarBtn").addEventListener("click", loginAutomatico);
+
+    // Data e hora atual
+    function atualizarDataHora() {
+      const agora = new Date();
+      const dataHora = agora.toLocaleString('pt-BR', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      document.getElementById('dataHora').textContent = dataHora;
+    }
+    setInterval(atualizarDataHora, 1000);
+    atualizarDataHora();
+
+    // Previsão do tempo (simulado)
+    document.getElementById("clima").textContent = "Céu limpo com sol ☀️ - 27°C";
+  </script>
+
+</body>
+</html>
